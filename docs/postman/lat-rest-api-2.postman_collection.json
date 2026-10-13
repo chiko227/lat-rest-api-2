@@ -1,0 +1,633 @@
+{
+  "info": {
+    "name": "Latihan REST API Pendaftaran OSIS - 20 Skenario",
+    "_postman_id": "4e6f6b7a-8c1d-4b65-9bde-osisapi0001",
+    "description": "Isi variables sesuai data hasil GET /api/siswa dan GET /api/pendaftaran-osis sebelum menjalankan skenario. Request yang mengubah/menghapus data dapat memengaruhi skenario berikutnya.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "registration_id",
+      "value": "1"
+    },
+    {
+      "key": "new_siswa_id",
+      "value": "3"
+    },
+    {
+      "key": "another_siswa_id",
+      "value": "4"
+    },
+    {
+      "key": "registration_siswa_id",
+      "value": "1"
+    },
+    {
+      "key": "other_registered_siswa_id",
+      "value": "2"
+    },
+    {
+      "key": "delete_registration_id",
+      "value": "2"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 GET kelas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/kelas",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "kelas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "02 GET jenis kelamin",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/jenis-kelamin",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "jenis-kelamin"
+          ]
+        }
+      }
+    },
+    {
+      "name": "03 GET siswa",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/siswa",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "siswa"
+          ]
+        }
+      }
+    },
+    {
+      "name": "04 GET daftar pendaftaran",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis"
+          ]
+        }
+      }
+    },
+    {
+      "name": "05 GET detail pendaftaran ID 1",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{registration_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "06 GET detail ID tidak ada",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/999",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "07 POST valid - gunakan siswa belum terdaftar",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{new_siswa_id}}\", \"pilihan_bidang\": \"keagamaan\", \"motivasi\": \"Saya ingin berkontribusi dalam kegiatan OSIS dan membantu mengembangkan kegiatan positif di sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "08 POST duplikat - ulangi siswa yang sama",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{new_siswa_id}}\", \"pilihan_bidang\": \"keagamaan\", \"motivasi\": \"Saya ingin berkontribusi dalam kegiatan OSIS dan membantu mengembangkan kegiatan positif di sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "09 POST siswa tidak ada",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": 9999, \"pilihan_bidang\": \"seni\", \"motivasi\": \"Saya ingin berkontribusi dalam kegiatan OSIS dan membantu mengembangkan kegiatan positif di sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "10 POST bidang tidak valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{another_siswa_id}}\", \"pilihan_bidang\": \"robotik\", \"motivasi\": \"Saya ingin berkontribusi dalam kegiatan OSIS dan membantu mengembangkan kegiatan positif di sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "11 POST motivasi 19 karakter",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{another_siswa_id}}\", \"pilihan_bidang\": \"seni\", \"motivasi\": \"1234567890123456789\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "12 POST motivasi 301 karakter",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{another_siswa_id}}\", \"pilihan_bidang\": \"seni\", \"motivasi\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "13 PUT valid - siswa tetap sama",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{registration_id}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{registration_siswa_id}}\", \"pilihan_bidang\": \"seni\", \"motivasi\": \"Saya ingin mengembangkan bakat seni dan ikut kegiatan sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "14 PUT siswa milik pendaftaran lain",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{registration_id}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{other_registered_siswa_id}}\", \"pilihan_bidang\": \"seni\", \"motivasi\": \"Saya ingin berkontribusi dalam kegiatan OSIS dan membantu mengembangkan kegiatan positif di sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "15 PUT bidang tidak valid",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{registration_id}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{registration_siswa_id}}\", \"pilihan_bidang\": \"robotik\", \"motivasi\": \"Saya ingin berkontribusi dalam kegiatan OSIS dan membantu mengembangkan kegiatan positif di sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "16 PUT motivasi di luar batas",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{registration_id}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{registration_siswa_id}}\", \"pilihan_bidang\": \"seni\", \"motivasi\": \"terlalu pendek\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "17 PUT ID tidak ada",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/999",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "999"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"siswa_id\": \"{{registration_siswa_id}}\", \"pilihan_bidang\": \"seni\", \"motivasi\": \"Saya ingin berkontribusi dalam kegiatan OSIS dan membantu mengembangkan kegiatan positif di sekolah.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "18 DELETE pendaftaran tersedia",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{delete_registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{delete_registration_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "19 GET detail setelah dihapus",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{delete_registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{delete_registration_id}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "20 DELETE ulang setelah dihapus",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/pendaftaran-osis/{{delete_registration_id}}",
+          "host": [
+            "{{base_url}}",
+            "api"
+          ],
+          "path": [
+            "pendaftaran-osis",
+            "{{delete_registration_id}}"
+          ]
+        }
+      }
+    }
+  ]
+}
